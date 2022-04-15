@@ -7,6 +7,8 @@
 
 #include <string>
 #include <stdexcept>
+#include <thread>
+#include <chrono>
 #include "Window.h"
 
 void Window::create_window(int width, int height)
@@ -43,11 +45,29 @@ Window::Window(int width, int height)
 void Window::run()
 {
 	SDL_Event event;
+	volatile bool want_quit = false;
+
+	std::thread update_thread {
+		[&]() {
+			using clk = std::chrono::high_resolution_clock;
+			auto next_update = clk::now() +
+					StateMachine::current_state().lock()->update_interval();
+			while(not want_quit) {
+				std::this_thread::sleep_until(next_update);
+				if (auto st = StateMachine::current_state().lock()) {
+					st->update();
+					next_update += st->update_interval();
+				} else break;
+			}
+		}
+	};
 
 	for (;;) {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_QUIT:
+				want_quit = true;
+				update_thread.join();
 				return;
 				break;
 			case SDL_WINDOWEVENT:
@@ -56,9 +76,14 @@ void Window::run()
 				}
 				break;
 			}
+			if (auto st = StateMachine::current_state().lock()) {
+				st->event(event);
+			}
 		}
 
-		SDL_RenderClear(_renderer.get());
+		if (auto st = StateMachine::current_state().lock()) {
+			st->render(_renderer.get(), _width, _height);
+		}
 		SDL_RenderPresent(_renderer.get());
 	}
 }

@@ -10,6 +10,7 @@
 
 #include <memory>
 #include <SDL2/SDL.h>
+#include "StateMachine.h"
 
 class Window
 {

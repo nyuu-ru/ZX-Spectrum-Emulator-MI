@@ -11,6 +11,7 @@
 
 #include "Window.h"
 
+#include "StateMachine.h"
 
 int main(int, char **)
 {
@@ -19,7 +20,9 @@ int main(int, char **)
 
 	Window w { 1920, 1080 };
 
+	StateMachine::enter_state(std::make_shared<TestState>());
 	w.run();
+	StateMachine::leave_state();
 
 	std::cout << "Program ended." << std::endl;
 	return 0;
