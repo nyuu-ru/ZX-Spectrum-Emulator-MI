@@ -27,7 +27,8 @@ void Window::create_window(int width, int height)
 void Window::create_renderer()
 {
 	_renderer = std::shared_ptr<SDL_Renderer>(
-	        SDL_CreateRenderer(_window.get(), -1, SDL_RENDERER_ACCELERATED),
+	        SDL_CreateRenderer(_window.get(), -1, SDL_RENDERER_ACCELERATED |
+	                           SDL_RENDERER_PRESENTVSYNC),
 	        SDL_DestroyRenderer);
 	if (_renderer == nullptr)
 		throw std::runtime_error(
