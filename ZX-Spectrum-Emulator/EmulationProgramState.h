@@ -9,10 +9,15 @@
 #define EMULATIONPROGRAMSTATE_H_
 
 #include "ProgramState.h"
+#include "ZXEmulator.h"
 
 class EmulationProgramState final : public ProgramState
 {
+private:
+	std::shared_ptr<ZXEmulator> _emulator;
+
 public:
+	EmulationProgramState(SDL_Renderer * r);
 	virtual ~EmulationProgramState() = default;
 
 	virtual void render(SDL_Renderer *r, int width, int height) override;

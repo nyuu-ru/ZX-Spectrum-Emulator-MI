@@ -24,6 +24,8 @@ public:
 	virtual uint8_t mem_read(uint16_t address) = 0;
 	virtual void io_write(uint16_t address, uint8_t data) = 0;
 	virtual uint8_t io_read(uint16_t address) = 0;
+
+	RAM & ram() { return _ram; }
 };
 
 class BusInterface48k: public BusInterface

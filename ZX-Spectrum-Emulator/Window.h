@@ -29,6 +29,8 @@ public:
 	virtual ~Window() = default;
 
 	void run();
+
+	SDL_Renderer * renderer() { return _renderer.get(); }
 };
 
 #endif /* WINDOW_H_ */

@@ -12,6 +12,7 @@
 #include "Window.h"
 
 #include "StateMachine.h"
+#include "EmulationProgramState.h"
 
 int main(int, char **)
 {
@@ -20,7 +21,9 @@ int main(int, char **)
 
 	Window w { 1920, 1080 };
 
-	StateMachine::enter_state(std::make_shared<TestState>());
+	StateMachine::enter_state(
+			std::make_shared<EmulationProgramState>(
+					w.renderer()));
 	w.run();
 	StateMachine::leave_state();
 

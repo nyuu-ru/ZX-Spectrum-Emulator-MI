@@ -10,18 +10,23 @@
 
 #include <memory>
 #include "BusInterface.h"
+#include "VideoOutput.h"
 
 class ZXEmulator
 {
 protected:
 	std::shared_ptr<BusInterface> _bus;
+	std::shared_ptr<VideoOutput> _video;
+	SDL_Renderer * _r;
 	// Z80CPU _cpu;
 	// ...
 	// TODO
 
 public:
-	ZXEmulator();
+	ZXEmulator(SDL_Renderer * r);
 	virtual ~ZXEmulator() = default;
+
+	void render();
 };
 
 #endif /* ZXEMULATOR_H_ */
