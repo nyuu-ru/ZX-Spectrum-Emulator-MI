@@ -6,7 +6,6 @@
  */
 
 #include "VideoOutput.h"
-#include <iostream>
 
 static const uint32_t COLOURS [16] {
 	0xff000000,		// 0000	// I G R B

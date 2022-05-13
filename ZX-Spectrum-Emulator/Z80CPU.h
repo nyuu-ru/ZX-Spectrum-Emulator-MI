@@ -9,7 +9,6 @@
 #define Z80CPU_H_
 
 #include <cstdint>
-#include <iostream>
 #include <memory>
 #include "BusInterface.h"
 
@@ -33,16 +32,10 @@ public:
 	void mem_write(uint16_t address, uint8_t data)
 	{
 		_bus->mem_write(address, data);
-//		std::cout << "CPU ";
-//		for (uint16_t kk = 0; kk < 16; ++kk)
-//			std::cout << int(_bus->vmem_read(kk)) << " ";
-//		std::cout << std::endl;
-
 	}
 
 	uint8_t mem_read(uint16_t address) const
 	{
-//		std::cout << "Memory read : " << address << std::endl;
 		return _bus->mem_read(address);
 	}
 

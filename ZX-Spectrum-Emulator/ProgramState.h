@@ -11,8 +11,6 @@
 #include <chrono>
 #include <SDL2/SDL.h>
 
-#include <iostream>
-
 class ProgramState
 {
 public:
@@ -44,7 +42,7 @@ public:
 
 	virtual void update()
 	{
-		std::cout << "Meow!" << std::endl;
+//		std::cout << "Meow!" << std::endl;
 	}
 };
 

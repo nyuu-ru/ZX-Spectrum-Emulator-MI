@@ -7,8 +7,6 @@
 
 #include "BusInterface.h"
 
-#include <iostream>
-
 uint8_t BusInterface48k::mem_read(uint16_t address) const
 {
 	if (address < 16384)

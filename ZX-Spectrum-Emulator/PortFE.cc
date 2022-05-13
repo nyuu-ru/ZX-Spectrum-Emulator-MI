@@ -7,8 +7,6 @@
 
 #include "PortFE.h"
 
-#include <iostream>
-
 uint8_t PortFE::read(uint32_t address) const
 {
 	return 0; // TODO: реализовать этот порт
