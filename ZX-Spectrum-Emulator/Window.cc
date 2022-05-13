@@ -27,8 +27,9 @@ void Window::create_window(int width, int height)
 void Window::create_renderer()
 {
 	_renderer = std::shared_ptr<SDL_Renderer>(
-	        SDL_CreateRenderer(_window.get(), -1, SDL_RENDERER_ACCELERATED |
-	                           SDL_RENDERER_PRESENTVSYNC),
+	        SDL_CreateRenderer(
+	        		_window.get(), -1,
+	        		SDL_RENDERER_ACCELERATED),
 	        SDL_DestroyRenderer);
 	if (_renderer == nullptr)
 		throw std::runtime_error(
@@ -56,7 +57,9 @@ void Window::run()
 			while(not want_quit) {
 				std::this_thread::sleep_until(next_update);
 				if (auto st = StateMachine::current_state().lock()) {
+					_render_mutex.lock();
 					st->update();
+					_render_mutex.unlock();
 					next_update += st->update_interval();
 				} else break;
 			}
@@ -82,10 +85,13 @@ void Window::run()
 			}
 		}
 
-		if (auto st = StateMachine::current_state().lock()) {
-			st->render(_renderer.get(), _width, _height);
+		if (_render_mutex.try_lock()) {
+			if (auto st = StateMachine::current_state().lock()) {
+					st->render(_renderer.get(), _width, _height);
+			}
+			SDL_RenderPresent(_renderer.get());
+			_render_mutex.unlock();
 		}
-		SDL_RenderPresent(_renderer.get());
 	}
 }
 

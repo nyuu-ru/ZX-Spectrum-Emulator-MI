@@ -20,7 +20,7 @@ public:
 	ROM(const char *filename);
 	virtual ~ROM() = default;
 
-	virtual uint8_t read(uint32_t address) override
+	virtual uint8_t read(uint32_t address) const override
 	{
 		return _rom[address % _rom.size()];
 	}

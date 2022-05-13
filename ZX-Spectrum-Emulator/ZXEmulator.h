@@ -11,14 +11,17 @@
 #include <memory>
 #include "BusInterface.h"
 #include "VideoOutput.h"
+#include "Z80CPU.h"
 
 class ZXEmulator
 {
 protected:
 	std::shared_ptr<BusInterface> _bus;
-	std::shared_ptr<VideoOutput> _video;
+	std::shared_ptr<VideoOutput>  _video;
+	std::shared_ptr<Z80CPU>       _cpu;
 	SDL_Renderer * _r;
-	// Z80CPU _cpu;
+	int _current_line { 0 };
+	bool _initialized { false };
 	// ...
 	// TODO
 
@@ -27,6 +30,9 @@ public:
 	virtual ~ZXEmulator() = default;
 
 	void render();
+	void update_line();
+
+	bool initialized() const { return _initialized; }
 };
 
 #endif /* ZXEMULATOR_H_ */

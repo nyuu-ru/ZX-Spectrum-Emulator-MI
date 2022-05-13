@@ -16,3 +16,19 @@ void EmulationProgramState::render(SDL_Renderer *r, int width, int height)
 {
 	_emulator->render();
 }
+
+std::chrono::microseconds EmulationProgramState::update_interval() const
+{
+	return std::chrono::microseconds(1'000'000 / 50);
+}
+
+void EmulationProgramState::update()
+{
+	if (not _emulator->initialized())
+		return;
+
+	for (int i = 0; i < VideoOutput::TOTAL_LINES; ++i) {
+		_emulator->update_line();
+	}
+}
+

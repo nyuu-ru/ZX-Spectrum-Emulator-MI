@@ -26,13 +26,23 @@ public:
 			BORDER_LEFT + PAPER_WIDTH  + BORDER_RIGHT;
 	static constexpr int SCREEN_HEIGHT =
 			BORDER_TOP  + PAPER_HEIGHT + BORDER_BOTTOM;
+	static constexpr int INACTIVE_LINES = 16;
+	static constexpr int INACTIVE_COLS  = 96;
+	static constexpr int TOTAL_LINES =
+			SCREEN_HEIGHT + INACTIVE_LINES;
+	static constexpr int TOTAL_COLS =
+			SCREEN_WIDTH + INACTIVE_COLS;
+
 
 private:
-	const BusInterface &_bus;
+	std::shared_ptr<BusInterface> _bus;
 	std::shared_ptr<SDL_Texture> _tex;
+	std::shared_ptr<SDL_Surface> _screen;
 	SDL_Renderer * _r;
+	bool _flash_state { false };
+
 public:
-	VideoOutput(const BusInterface &b, SDL_Renderer * rr);
+	VideoOutput(std::shared_ptr<BusInterface> b, SDL_Renderer * rr);
 	~VideoOutput();
 
 	void render();					// будет непосредственно рисовать

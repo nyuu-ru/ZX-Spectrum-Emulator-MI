@@ -21,7 +21,7 @@ public:
 	RAM(size_t size): _ram(size) {}
 	virtual ~RAM() = default;
 
-	virtual uint8_t read(uint32_t address) override
+	virtual uint8_t read(uint32_t address) const override
 	{
 		return _ram[address % _ram.size()];
 	}

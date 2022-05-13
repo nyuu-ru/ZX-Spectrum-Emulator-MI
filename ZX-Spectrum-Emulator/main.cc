@@ -19,7 +19,10 @@ int main(int, char **)
 	std::cout << "Program started." << std::endl;
 	SDL_Init(SDL_INIT_EVERYTHING);
 
-	Window w { 1920, 1080 };
+	// SCALE подбираем, чтоб окно комфортно влазило на экран.
+	constexpr int SCALE = 5;
+
+	Window w { 352 * SCALE, 296 * SCALE };
 
 	StateMachine::enter_state(
 			std::make_shared<EmulationProgramState>(

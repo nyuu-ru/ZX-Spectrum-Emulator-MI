@@ -9,6 +9,7 @@
 #define WINDOW_H_
 
 #include <memory>
+#include <mutex>
 #include <SDL2/SDL.h>
 #include "StateMachine.h"
 
@@ -21,6 +22,7 @@ private:
 protected:
 	std::shared_ptr<SDL_Window> _window {};
 	std::shared_ptr<SDL_Renderer> _renderer {};
+	std::mutex _render_mutex {};
 
 	int _width, _height;
 

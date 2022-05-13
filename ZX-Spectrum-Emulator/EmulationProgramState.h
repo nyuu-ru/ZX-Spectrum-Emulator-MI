@@ -21,6 +21,9 @@ public:
 	virtual ~EmulationProgramState() = default;
 
 	virtual void render(SDL_Renderer *r, int width, int height) override;
+
+	virtual std::chrono::microseconds update_interval() const override;
+	virtual void update() override;
 };
 
 #endif /* EMULATIONPROGRAMSTATE_H_ */
