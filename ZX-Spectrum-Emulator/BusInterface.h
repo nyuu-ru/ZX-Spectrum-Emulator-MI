@@ -11,6 +11,7 @@
 #include "ROM.h"
 #include "RAM.h"
 #include "PortFE.h"
+#include "Keyboard.h"
 
 class BusInterface
 {
@@ -18,6 +19,7 @@ protected:
 	ROM _rom;
 	RAM _ram;
 	PortFE _port_fe;
+	Keyboard _keyboard;
 
 public:
 	BusInterface(const char * rom_filename, size_t ram_size);
@@ -31,6 +33,16 @@ public:
 
 	RAM & ram() { return _ram; }
 	uint8_t border() const { return _port_fe.border(); }
+
+	void key_press(int row, int col)
+	{
+		_keyboard.key_press(row, col);
+	}
+
+	void key_release(int row, int col)
+	{
+		_keyboard.key_release(row, col);
+	}
 };
 
 class BusInterface48k: public BusInterface

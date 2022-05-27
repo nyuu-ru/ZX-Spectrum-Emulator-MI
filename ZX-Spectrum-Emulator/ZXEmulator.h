@@ -25,6 +25,9 @@ protected:
 	// ...
 	// TODO
 
+	static constexpr int FLASH_PERIOD = 20;
+	int _flash_counter { FLASH_PERIOD };
+
 public:
 	ZXEmulator(SDL_Renderer * r);
 	virtual ~ZXEmulator() = default;
@@ -33,6 +36,15 @@ public:
 	void update_line();
 
 	bool initialized() const { return _initialized; }
+
+	void key_press(SDL_Scancode key);
+	void key_release(SDL_Scancode key);
+
+	void save_sna48(const char * filename);
+	void load_sna48(const char * filename);
+
+	void save_z80v1(const char * filename);
+	void load_z80v1(const char * filename);
 };
 
 #endif /* ZXEMULATOR_H_ */

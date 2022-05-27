@@ -32,3 +32,10 @@ void EmulationProgramState::update()
 	}
 }
 
+void EmulationProgramState::event(const SDL_Event &event)
+{
+	if (event.type == SDL_KEYDOWN)
+		_emulator->key_press(event.key.keysym.scancode);
+	if (event.type == SDL_KEYUP)
+		_emulator->key_release(event.key.keysym.scancode);
+}

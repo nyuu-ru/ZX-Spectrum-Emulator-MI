@@ -24,6 +24,7 @@ public:
 
 	virtual std::chrono::microseconds update_interval() const override;
 	virtual void update() override;
+	virtual void event(const SDL_Event &event) override;
 };
 
 #endif /* EMULATIONPROGRAMSTATE_H_ */

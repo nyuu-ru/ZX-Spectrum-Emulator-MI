@@ -15,12 +15,17 @@
 #define register
 #include "Z80/Z80.h"
 
+class ZXEmulator;
+
 class Z80CPU final
 {
 private:
 	std::shared_ptr<BusInterface> _bus;
 	Z80 _cpu {};
 	int _clock_diff { 0 };
+
+	friend class ZXEmulator;
+
 
 public:
 	Z80CPU(std::shared_ptr<BusInterface> b);

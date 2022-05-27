@@ -48,6 +48,8 @@ public:
 	void render();					// будет непосредственно рисовать
 	void update_line(int line);		// будет обновлять 1 строку текстуры
 	void update();					// будет обновлять _всю_ текстуру
+
+	void flash() { _flash_state = not _flash_state; }
 };
 
 #endif /* VIDEOOUTPUT_H_ */
